@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script xmlns:i="http://www.w3.org/2001/XMLSchema-instance" z:Id="i1" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns="http://schemas.datacontract.org/2004/07/BR.Logic">
+  <CompilationType>CSharp</CompilationType>
+  <Description>Nuevo script vacio.</Description>
+  <Id>30efd5ef-89bc-4ffb-87d4-6aedf15c351a</Id>
+  <Logic z:Id="i2" i:type="ExecutedStep">
+    <Childs>
+      <AbstractStep z:Id="i3" i:type="ExecutedStep">
+        <Childs />
+        <Id>c41adc66-439d-47d1-abcc-d80fcbbab507</Id>
+        <Parent z:Ref="i2" />
+        <PropertyValues>
+          <PropertyValue z:Id="i4">
+            <PropertyName>JSCode</PropertyName>
+            <_dataType>Expression</_dataType>
+            <_expression>@"
+function extraerDatosTablaAJSON() {
+    // Encuentra la tabla por su clase
+    var tabla = document.querySelector('.table.table-hover.no-border');
+    
+    // Obtiene todas las filas de la tabla, excepto la fila del encabezado
+    var filas = tabla.querySelectorAll('tr:not(.info)');
+
+    // Crear un arreglo para almacenar los datos de cada fila
+    var datos = [];
+
+    // Itera a través de cada fila
+    filas.forEach((fila) =&gt; {
+        var celdas = fila.querySelectorAll('td');
+        if (celdas.length &gt; 0) {
+            // Crea un objeto para la fila actual
+            var objetoFila = {
+                fechaHora: celdas[0].textContent.trim(),
+                paciente: celdas[1].textContent.trim(),
+                profesional: celdas[2].textContent.trim(),
+                descripcion: celdas[3].textContent.trim(),
+                administradora: celdas[4].textContent.trim(),
+                copago: celdas[5].textContent.trim(),
+                tipo: celdas[6].textContent.trim(),
+                consultorio: celdas[7].textContent.trim(),
+                estado: celdas[8].textContent.trim(),
+                accion: celdas[9].innerHTML.trim(), // Contiene HTML, no solo texto
+                recaudo: celdas[10].innerHTML.trim(), // Contiene HTML, no solo texto
+                fv: celdas[11].textContent.trim()
+            };
+
+            // Agrega el objeto al arreglo de datos
+            datos.push(objetoFila);
+        }
+    });
+
+    // Convierte el arreglo a un string JSON
+    return JSON.stringify(datos);
+}
+
+// Ejemplo de uso
+return extraerDatosTablaAJSON();
+"; </_expression>
+            <_value i:nil="true" />
+            <_xpathSettings xmlns:d7p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+          </PropertyValue>
+          <PropertyValue z:Id="i5">
+            <PropertyName>Result</PropertyName>
+            <_dataType>Expression</_dataType>
+            <_expression>jsonDatos</_expression>
+            <_value i:nil="true" />
+            <_xpathSettings xmlns:d7p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+          </PropertyValue>
+          <PropertyValue z:Id="i6">
+            <PropertyName>Browser</PropertyName>
+            <_dataType>Expression</_dataType>
+            <_expression>nvg</_expression>
+            <_value i:nil="true" />
+            <_xpathSettings xmlns:d7p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+          </PropertyValue>
+        </PropertyValues>
+        <SelectedOptionId i:nil="true" />
+        <EnableStatus>true</EnableStatus>
+        <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+        <RetryCount>-1</RetryCount>
+        <Text></Text>
+        <_activityFullName>Activities.Web.ExecuteJSCode</_activityFullName>
+      </AbstractStep>
+      <AbstractStep z:Id="i7" i:type="ExecutedStep">
+        <Childs />
+        <Id>6766476b-9e90-43f8-a11c-cb124933297a</Id>
+        <Parent z:Ref="i2" />
+        <PropertyValues>
+          <PropertyValue z:Id="i8">
+            <PropertyName>CSCode</PropertyName>
+            <_dataType>Value</_dataType>
+            <_expression i:nil="true" />
+            <_value xmlns:d7p1="http://www.w3.org/2001/XMLSchema" i:type="d7p1:string">tablaRecaudoUsuario = Newtonsoft.Json.JsonConvert.DeserializeObject&lt;DataTable&gt;(jsonDatos);</_value>
+            <_xpathSettings xmlns:d7p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+          </PropertyValue>
+          <PropertyValue z:Id="i9">
+            <PropertyName>Timeout</PropertyName>
+            <_dataType>Value</_dataType>
+            <_expression i:nil="true" />
+            <_value xmlns:d7p1="http://www.w3.org/2001/XMLSchema" i:type="d7p1:int">0</_value>
+            <_xpathSettings xmlns:d7p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+          </PropertyValue>
+        </PropertyValues>
+        <SelectedOptionId i:nil="true" />
+        <EnableStatus>true</EnableStatus>
+        <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+        <RetryCount>-1</RetryCount>
+        <Text>Deserealizar tabla</Text>
+        <_activityFullName>BR.Core.Base.ExecuteCSCode</_activityFullName>
+      </AbstractStep>
+    </Childs>
+    <Id>7ddfc75c-3bb9-467d-b0c7-6abe05851901</Id>
+    <Parent i:nil="true" />
+    <PropertyValues />
+    <SelectedOptionId i:nil="true" />
+    <EnableStatus>true</EnableStatus>
+    <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+    <RetryCount>-1</RetryCount>
+    <Text></Text>
+    <_activityFullName>BR.Core.Base.Container</_activityFullName>
+  </Logic>
+  <Name>ExtraerTabla.pix</Name>
+  <Namespaces xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+    <d2p1:string>Newtonsoft.Json</d2p1:string>
+    <d2p1:string>Newtonsoft.Json.Linq</d2p1:string>
+  </Namespaces>
+  <Params>
+    <Parameter z:Id="i10">
+      <DefaultValueExpression></DefaultValueExpression>
+      <Description></Description>
+      <Name>nvg</Name>
+      <RunnerType>None</RunnerType>
+      <TypeString>Web.Core.WebBrowser</TypeString>
+    </Parameter>
+    <Parameter z:Id="i11">
+      <DefaultValueExpression></DefaultValueExpression>
+      <Description></Description>
+      <Name>tablaRecaudoUsuario</Name>
+      <RunnerType>None</RunnerType>
+      <TypeString>System.Data.DataTable</TypeString>
+    </Parameter>
+  </Params>
+  <TemplateVersion xmlns:d2p1="http://schemas.datacontract.org/2004/07/System" i:nil="true" />
+  <Variables xmlns:d2p1="http://schemas.datacontract.org/2004/07/BR.Logic.Params" />
+  <Version i:nil="true" />
+</Script>
